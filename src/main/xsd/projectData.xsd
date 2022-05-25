@@ -1,0 +1,120 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://spring.io/guides/gs-producing-web-service"
+           targetNamespace="http://spring.io/guides/gs-producing-web-service" elementFormDefault="qualified">
+
+    <xs:element name="getProjectRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="name" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getProjectResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="project" type="tns:project"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="projectList">
+        <xs:sequence>
+            <xs:element type="tns:project" name="project" maxOccurs="unbounded" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="project">
+        <xs:sequence>
+            <xs:element name="character" type="xs:string"/>
+            <xs:element name="source" type="xs:string"/>
+            <xs:element name="dueDate" type="xs:string"/>
+            <xs:element name="startDate" type="xs:string"/>
+            <xs:element name="finishDate" type="xs:string"/>
+            <xs:element name="budget">
+                <xs:simpleType>
+                    <xs:restriction base="xs:float">
+                        <xs:minInclusive value="0"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="componentList" type="tns:componentList"/>
+            <xs:element name="conventionList" type="tns:conventionList"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="componentList">
+        <xs:sequence>
+            <xs:element name="component" type="tns:component" maxOccurs="unbounded" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="component">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="cost">
+                <xs:simpleType>
+                    <xs:restriction base="xs:float">
+                        <xs:minInclusive value="0"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="taskList" type="tns:taskList"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="taskList">
+        <xs:sequence>
+            <xs:element name="task" type="tns:task" maxOccurs="unbounded" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="task">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="progress">
+                <xs:simpleType>
+                    <xs:restriction base="xs:nonNegativeInteger">
+                        <xs:maxInclusive value="100"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="timeElapsedHours" type="xs:nonNegativeInteger"/>
+            <xs:element name="timeElapsedMinutes">
+                <xs:simpleType>
+                    <xs:restriction base="xs:nonNegativeInteger">
+                        <xs:maxInclusive value="59"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="conventionList">
+        <xs:sequence>
+            <xs:element name="convention" type="tns:convention" maxOccurs="unbounded" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="convention">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="date" type="xs:string"/>
+            <xs:element name="competitionList" type="tns:competitionList"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="competitionList">
+        <xs:sequence>
+            <xs:element name="competition" type="tns:competition" maxOccurs="unbounded" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="competition">
+        <xs:sequence>
+            <xs:element name="category" type="xs:string"/>
+            <xs:element name="award" type="xs:string"/>
+            <xs:element name="prize" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>
